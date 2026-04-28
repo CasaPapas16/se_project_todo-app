@@ -27,7 +27,6 @@ const generateTodo = (data) => {
 };
 
 addTodoButton.addEventListener("click", () => {
-  newTodoValidator.resetValidation();
   openModal(addTodoPopup);
 });
 
@@ -47,14 +46,19 @@ addTodoForm.addEventListener("submit", (evt) => {
   const id = uuidv4();
 
   const values = { name, date, id };
-  const todo = generateTodo(values);
-  todosList.append(todo);
+  addTodoToList(values);
+  newTodoValidator.resetValidation();
   closeModal(addTodoPopup);
 });
 
-initialTodos.forEach((item) => {
-  const todo = generateTodo(item);
+const addTodoToList = (todoData) => {
+  const todo = generateTodo(todoData);
   todosList.append(todo);
+  return todo;
+};
+
+initialTodos.forEach((item) => {
+  addTodoToList(item);
 });
 
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);

@@ -27,6 +27,7 @@ const generateTodo = (data) => {
 };
 
 addTodoButton.addEventListener("click", () => {
+  newTodoValidator.resetValidation();
   openModal(addTodoPopup);
 });
 

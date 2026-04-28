@@ -49,7 +49,16 @@ class FormValidator {
     }
   }
 
-  resetValidation() {}
+  resetValidation() {
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+
+    const buttonElement = this._formEl.querySelector(
+      this._submitButtonSelector,
+    );
+    this._toggleButtonState(buttonElement);
+  }
 
   _setEventListeners() {
     this._inputList = Array.from(

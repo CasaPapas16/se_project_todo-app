@@ -14,7 +14,21 @@ const todosList = document.querySelector(".todos__list");
 
 const addTodoPoopup = new PopupWithForm({
   popupSelector: "#add-todo-popup",
-  handleFormSubmit: () => {},
+  handleFormSubmit: (formValues) => {
+    const { name, date } = formValues;
+
+    // Create a date object and adjust for timezone
+    const adjustedDate = new Date(date);
+    adjustedDate.setMinutes(
+      adjustedDate.getMinutes() + adjustedDate.getTimezoneOffset(),
+    );
+
+    const values = { name, date: adjustedDate, id: uuidv4() };
+
+    addTodoToList(values);
+    newTodoValidator.resetValidation();
+    addTodoPoopup.close();
+  },
 });
 addTodoPoopup.setEventListeners();
 
@@ -45,23 +59,6 @@ const addTodoToList = (todoData) => {
 
 addTodoButton.addEventListener("click", () => {
   addTodoPoopup.open();
-});
-
-addTodoForm.addEventListener("submit", (evt) => {
-  evt.preventDefault();
-  const name = evt.target.name.value;
-  const dateInput = evt.target.date.value;
-
-  // Create a date object and adjust for timezone
-  const date = new Date(dateInput);
-  date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
-
-  const id = uuidv4();
-
-  const values = { name, date, id };
-  addTodoToList(values);
-  newTodoValidator.resetValidation();
-  addTodoPoopup.close();
 });
 
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);

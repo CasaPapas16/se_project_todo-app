@@ -38,7 +38,10 @@ addTodoPoopup.setEventListeners();
 const section = new Section({
   items: initialTodos,
   renderer: (item) => {
-    const todo = new Todo(item, "#todo-template");
+    const todo = new Todo(item, "#todo-template", {
+      handleCheck,
+      handleDelete,
+    });
     return todo.getView();
   },
   containerSelector: ".todos__list",
@@ -46,9 +49,19 @@ const section = new Section({
 
 section.renderItems();
 
+function handleCheck(isCompleted) {
+  todoCounter.updateCompleted(isCompleted);
+}
+
+function handleDelete(wasCompleted) {
+  if (wasCompleted) {
+    todoCounter.updateCompleted(false);
+  }
+}
+
 // The logic in this function should all be handled in the Todo class.
 const generateTodo = (data) => {
-  const todo = new Todo(data, "#todo-template");
+  const todo = new Todo(data, "#todo-template", { handleCheck, handleDelete });
   const todoElement = todo.getView();
 
   return todoElement;

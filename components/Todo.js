@@ -28,16 +28,13 @@ class Todo {
   }
 
   _setDueDate() {
-    this._setDueDate = new Date(this._data.date);
-    if (!isNaN(this._setDueDate)) {
-      this._todoDate.textContent = `Due: ${this._setDueDate.toLocaleString(
-        "en-US",
-        {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        },
-      )}`;
+    const dueDate = new Date(this._data.date); // ✅ Local variable
+    if (!Number.isNaN(dueDate.getTime())) {
+      this._todoDate.textContent = `Due: ${dueDate.toLocaleString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })}`;
     }
   }
 

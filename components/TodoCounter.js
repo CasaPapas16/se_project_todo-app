@@ -1,6 +1,4 @@
 class TodoCounter {
-  // todos should be the array of initial todos
-  // selector is the selector for the counter text element
   constructor(todos, selector) {
     this._element = document.querySelector(selector);
     this._completed = 0;

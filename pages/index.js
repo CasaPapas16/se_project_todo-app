@@ -29,6 +29,7 @@ const addTodoPoopup = new PopupWithForm({
     const values = { name, date: adjustedDate, id: uuidv4() };
 
     addTodoToList(values);
+    todoCounter.updateTotal(true);
     newTodoValidator.resetValidation();
     addTodoPoopup.close();
   },
@@ -57,6 +58,7 @@ function handleDelete(wasCompleted) {
   if (wasCompleted) {
     todoCounter.updateCompleted(false);
   }
+  todoCounter.updateTotal(false);
 }
 
 // The logic in this function should all be handled in the Todo class.

@@ -65,9 +65,7 @@ function handleDelete(wasCompleted) {
 }
 
 const addTodoToList = (todoData) => {
-  const todo = generateTodo(todoData);
-  section.addItem(todo);
-  return todo;
+  renderTodo(todoData);
 };
 
 addTodoButton.addEventListener("click", () => {
